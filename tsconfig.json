@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "esnext",
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "strict": true
+  },
+  "include": ["bin.ts"]
+}

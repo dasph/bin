@@ -1,0 +1,26 @@
+{
+  "name": "bin",
+  "version": "0.0.0",
+  "description": "A modern web application for an easy and seamless code sharing experience",
+  "main": "dist/bin.js",
+  "scripts": {
+    "dev": "nodemon -r dotenv/config -w dist",
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
+    "wp": "webpack --mode production",
+    "wp:w": "webpack serve",
+    "build": "npm run tsc && npm run wp",
+    "postinstall": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daspharion/bin.git"
+  },
+  "keywords": ["code", "bin", "paste", "share", "easy"],
+  "author": "Andrew Nyzhnyk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/daspharion/bin/issues"
+  },
+  "homepage": "https://github.com/daspharion/bin#readme"
+}

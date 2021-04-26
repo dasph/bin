@@ -1,0 +1,6 @@
+dist
+public
+node_modules
+.env
+package-lock.json
+ecosystem.config.js
