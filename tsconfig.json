@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
     "target": "esnext",
+    "module": "esnext",
+    "strict": true,
     "moduleResolution": "node",
-    "outDir": "dist",
-    "strict": true
+    "skipLibCheck": true
   },
-  "include": ["bin.ts"]
+  "include": ["src/**/*.ts"]
 }
