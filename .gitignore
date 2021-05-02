@@ -3,3 +3,4 @@ node_modules
 .todo
 package-lock.json
 ecosystem.config.js
+src/assets/tailwind.css
