@@ -4,9 +4,10 @@ module.exports = {
   runtimeCompiler: true,
   productionSourceMap: false,
   pages: {
-    index: {
+    bundle: {
       entry: './src/index.ts',
-      template: './src/assets/index.html'
+      template: './src/assets/index.html',
+      filename: 'index.html'
     }
   },
   chainWebpack: ({ module }) => {
