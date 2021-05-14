@@ -1,10 +1,10 @@
 <template>
-  <div class='flex flex-col min-h-screen bg-gray-1000 text-white'>
+  <div class='flex flex-col min-h-screen bg-gray-1000 text-gray-200'>
     <Header />
 
-    <BinSubmit />
+    <BinSubmit class='pt-5 pb-2 min-h-main' />
 
-    <Footer />
+    <Footer class='mt-32' />
   </div>
 </template>
 

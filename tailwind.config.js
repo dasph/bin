@@ -3,7 +3,8 @@ module.exports = {
   // purge: ['./src/**/*.vue'],
   theme: {
     fontFamily: {
-      sans: ['Quicksand', '"Segoe UI"',  '"Helvetica Neue"', 'Arial', 'sans-serif']
+      sans: ['Quicksand', '"Segoe UI"',  '"Helvetica Neue"', 'Arial', 'sans-serif'],
+      mono: ['"Roboto Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace']
     },
     extend: {
       colors: {
@@ -13,6 +14,9 @@ module.exports = {
       },
       borderWidth: {
         '1': '1px'
+      },
+      minHeight: {
+        'main': 'calc(100vh - 64px)'
       }
     }
   }
