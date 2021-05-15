@@ -19,5 +19,11 @@ module.exports = {
         'main': 'calc(100vh - 64px)'
       }
     }
+  },
+  variants: {
+    extend: {
+      opacity: ['disabled'],
+      cursor: ['disabled']
+    }
   }
 }
