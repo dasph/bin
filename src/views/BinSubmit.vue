@@ -36,6 +36,10 @@ type Payload = {
   value: string;
 }
 
+type SubmitResponse = {
+  id: string;
+}
+
 export default defineComponent({
   name: 'BinSubmit',
   components: {
@@ -61,7 +65,9 @@ export default defineComponent({
   },
   methods: {
     submit (payload: Payload) {
-      return request('pastes-post', { method: 'post', body: JSON.stringify(payload) }).then(console.log)
+      return request<SubmitResponse>('pastes-post', { method: 'post', body: JSON.stringify(payload) }).then(({ id }) => {
+        this.$router.push({ name: 'bin', params: { id } })
+      })
     }
   }
 })
