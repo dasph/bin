@@ -2,7 +2,7 @@
   <div class='flex flex-col min-h-screen bg-gray-1000 text-gray-200'>
     <Header />
 
-    <BinSubmit class='pt-5 pb-2 min-h-main' />
+    <router-view />
 
     <Footer class='mt-32' />
   </div>
@@ -13,14 +13,11 @@ import { defineComponent } from 'vue'
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 
-import BinSubmit from './views/BinSubmit.vue'
-
 export default defineComponent({
   name: 'App',
   components: {
     Header,
-    Footer,
-    BinSubmit
+    Footer
   }
 })
 </script>
