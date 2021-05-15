@@ -4,7 +4,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { highlight, languages } from 'prismjs'
 
 export default defineComponent({
   name: 'Textarea',
@@ -17,8 +16,6 @@ export default defineComponent({
   },
   methods: {
     onInput (ev: InputEvent & { target: HTMLInputElement }) {
-      const html = highlight(ev.target.innerText, languages.javascript, 'javascript');
-      ev.target.innerHTML = html
       const pt: [number, number] = [window.pageXOffset, window.pageYOffset]
 
       ev.target.style.height = 'auto'
