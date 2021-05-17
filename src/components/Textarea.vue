@@ -7,13 +7,6 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'Textarea',
-  data () {
-    return {
-      style: {
-        outerHeight: 'auto'
-      }
-    }
-  },
   methods: {
     onInput (ev: InputEvent & { target: HTMLInputElement }) {
       const pt: [number, number] = [window.pageXOffset, window.pageYOffset]

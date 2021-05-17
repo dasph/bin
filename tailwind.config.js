@@ -1,6 +1,9 @@
 module.exports = {
   // mode: 'jit',
-  purge: ['./src/**/*.vue', './src/**/*.ts'],
+  purge: {
+    enabled: true,
+    content: ['./src/**/*.vue', './src/**/*.ts']
+  },
   theme: {
     fontFamily: {
       sans: ['Quicksand', '"Segoe UI"',  '"Helvetica Neue"', 'Arial', 'sans-serif'],
