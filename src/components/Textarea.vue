@@ -1,5 +1,5 @@
 <template>
-  <textarea autocapitalize='none' autocomplete='off' autocorrect='off' spellcheck='false' class='bg-transparent p-1 resize-none overflow-hidden' @input='onInput' :style='style' />
+  <textarea :value='value' autocapitalize='none' autocomplete='off' autocorrect='off' spellcheck='false' class='bg-transparent p-1 resize-none overflow-hidden' />
 </template>
 
 <script lang="ts">
@@ -7,16 +7,20 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'Textarea',
-  methods: {
-    onInput (ev: InputEvent & { target: HTMLInputElement }) {
-      const pt: [number, number] = [window.pageXOffset, window.pageYOffset]
+  props: {
+    value: String
+  },
+  watch: {
+    value: function () {
+      this.$nextTick(() => {
+        const pt: [number, number] = [window.pageXOffset, window.pageYOffset]
 
-      ev.target.style.height = 'auto'
-      ev.target.style.height = `${ev.target.scrollHeight}px`
+        this.$el.style.height = 'auto'
+        this.$el.style.height = `${this.$el.scrollHeight}px`
 
-      window.scrollTo(...pt)
+        window.scrollTo(...pt)
+      })
     }
   }
-
 })
 </script>

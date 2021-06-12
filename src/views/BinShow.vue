@@ -2,7 +2,7 @@
   <div class='flex flex-col xl:flex-row mx-2'>
     <div class='w-full flex flex-grow flex-col xl:w-4/5 xl:pr-10'>
       <h2 className='text-lg sm:text-xl px-1 pb-1 border-l-1 border-current select-none'>{{title}}</h2>
-      <textarea v-model='value' :disabled='false' readonly placeholder='loading...' class='flex-grow w-full mt-2 bg-transparent p-1 resize-none overflowx-x-hidden overflow-y-scroll border-current border-1 font-mono font-light text-sm disabled:opacity-50' />
+      <Textarea :value='value' ref='textarea' readonly class='flex-grow w-full mt-2 border-current border-1 font-mono font-light text-sm disabled:opacity-50' />
     </div>
 
     <div class='xl:flex-grow mt-5 xl:mt-0'>
@@ -19,6 +19,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import Textarea from '../components/Textarea.vue'
 import { request } from '../utils'
 
 type State = {
@@ -36,6 +37,9 @@ type Bin = {
 
 export default defineComponent({
   name: 'BinShow',
+  components: {
+    Textarea
+  },
   data () {
     return {
       value: 'loading...',
