@@ -2,7 +2,7 @@
   <Form class='flex flex-col xl:flex-row mx-2' @submit='submit' v-slot='{ errors, isSubmitting }' :validation-schema='schema'>
     <div class='w-full flex flex-grow flex-col xl:w-4/5 xl:pr-10'>
       <h2 className='text-lg sm:text-xl px-1 pb-1 border-l-1 border-current select-none'>your bin</h2>
-      <Field name='value' v-slot='{ field }'>
+      <Field name='value' v-slot='{ field }' :validateOnBlur='!!errors.value' :validateOnChange='true' :validateOnInput='true'>
         <Textarea v-bind='field' :disabled='isSubmitting' autofocus placeholder='paste goes in here...' class='flex-grow w-full mt-2 border-current border-1 font-mono font-light text-sm disabled:opacity-50' />
       </Field>
     </div>
@@ -11,13 +11,16 @@
       <h2 className='text-lg sm:text-xl px-1 pb-1 border-l-1 border-current select-none'>settings</h2>
       <div class='grid grid-cols-5 gap-y-4 max-w-lg items-center mx-auto xl:mx-0 pt-5 text-sm sm:text-base'>
         <h3 class='col-span-1 sm:text-lg ml-1.5 select-none font-light'>title</h3>
-        <Field name='title' v-slot='{ field }'>
+        <Field name='title' v-slot='{ field }' :validateOnBlur='!!errors.title' :validateOnChange='true' :validateOnInput='true'>
           <InputText v-bind='field' placeholder="bin's title" class='col-span-4 disabled:opacity-50' :disabled='isSubmitting' />
         </Field>
-        <span class='col-span-full text-sm mt-2' v-if='errors.value'>⛔️ {{ errors.value }}</span>
-        <span class='col-span-full text-sm' v-if='errors.title'>⛔️ {{ errors.title }}</span>
+        <span class='col-span-full ml-1.5 text-sm mt-2' v-if='errors.value'><Error class='w-4 inline text-red-500' /> {{ errors.value }}</span>
+        <span class='col-span-full ml-1.5 text-sm' v-if='errors.title'><Error class='w-4 inline text-red-500' /> {{ errors.title }}</span>
 
-        <InputSubmit value='create' class='col-span-full m-auto px-6 py-1 select-none cursor-pointer disabled:opacity-50 disabled:cursor-default' :disabled='isSubmitting' />
+        <InputSubmit
+          value='create' class='col-span-full m-auto px-6 py-1 select-none cursor-pointer disabled:opacity-50 disabled:cursor-default'
+          :disabled='isSubmitting || errors.value || errors.title'
+        />
       </div>
     </div>
   </Form>
@@ -27,6 +30,7 @@
 import { defineComponent } from 'vue'
 import { Form, Field } from 'vee-validate'
 import { request } from '../utils'
+import { Error } from '../icons'
 import Textarea from '../components/Textarea.vue'
 import InputText from '../components/InputText.vue'
 import InputSubmit from '../components/InputSubmit.vue'
@@ -44,6 +48,7 @@ export default defineComponent({
   name: 'BinSubmit',
   components: {
     Form,
+    Error,
     Field,
     Textarea,
     InputText,
@@ -53,11 +58,11 @@ export default defineComponent({
     return {
       schema: {
         value (value: string) {
-          if (!value || value.trim() === '') return 'Your bin is empty'
+          if (!value || value.trim() === '') return 'your bin is empty'
           return true
         },
         title (value: string) {
-          if (!value || value.trim() === '') return 'Title is required'
+          if (!value || value.trim() === '') return 'title is required'
           return true
         }
       }
