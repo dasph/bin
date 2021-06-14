@@ -20,6 +20,15 @@ module.exports = {
       },
       minHeight: {
         'main': 'calc(100vh - 64px)'
+      },
+      keyframes: {
+        fadeOut: {
+          '0%': { opacity: '1' },
+          '100%': { opacity: '0' }
+        }
+      },
+      animation: {
+        fadeOut: 'fadeOut 2s ease-in-out forwards'
       }
     }
   },
