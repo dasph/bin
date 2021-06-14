@@ -90,8 +90,8 @@ export default defineComponent({
           return true
         },
         password (value: string) {
-          if (value.length < 3) return 'password is too short'
-          if (value.length > 32) return 'password is too long'
+          if (value?.length < 3) return 'password is too short'
+          if (value?.length > 32) return 'password is too long'
           return true
         },
         confirmation (value: string, ctx: FieldContext) {
