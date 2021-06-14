@@ -9,7 +9,7 @@
       <h2 className='text-lg sm:text-xl px-1 pb-1 border-l-1 border-current select-none'>details</h2>
       <div class='grid grid-cols-5 gap-y-4 max-w-lg items-center mx-auto xl:mx-0 pt-5 text-sm sm:text-base'>
         <h3 v-if='password' class='col-span-full sm:text-lg ml-0.5 select-none font-light'><Lock class='w-6 inline mr-2' />password protected</h3>
-        <h3 v-if='createdAt' class='col-span-2 sm:text-lg ml-1.5 select-none font-light'>created:</h3>
+        <h3 v-if='createdAt' class='col-span-2 sm:text-lg ml-1.5 select-none font-light'>created on:</h3>
         <span v-if='createdAt' class='col-span-3'>{{new Date(+createdAt).toDateString()}}</span>
         <h3 v-if='expireAt' class='col-span-2 sm:text-lg ml-1.5 select-none font-light'>expires on:</h3>
         <span v-if='expireAt' class='col-span-3'>{{new Date(+expireAt).toDateString()}}</span>
