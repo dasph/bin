@@ -15,12 +15,12 @@
           <InputText v-bind='field' placeholder="bin's title" maxlength='64' class='col-span-7 xs:col-span-8 disabled:opacity-50' :disabled='isSubmitting' />
         </Field>
 
-        <Field name='password' v-slot='{ field }' :validateOnBlur='!!errors.password' :validateOnChange='true' :validateOnInput='true'>
+        <Field name='password' v-slot='{ field }' :validateOnBlur='!!errors.password' :validateOnChange='true' :validateOnInput='false'>
           <h3 class='col-span-3 xs:col-span-2 sm:text-lg ml-1.5 select-none font-light' :class="{ 'opacity-50': !field.value}">pass</h3>
           <InputText type='password' v-bind='field' maxlength='32' class='col-span-7 xs:col-span-8 disabled:opacity-50' :class="{ 'opacity-50': !field.value}" :disabled='isSubmitting' />
         </Field>
 
-        <Field name='confirmation' v-slot='{ field }' v-if='values.password' :validateOnBlur='!!errors.confirmation' :validateOnChange='true' :validateOnInput='true'>
+        <Field name='confirmation' v-slot='{ field }' v-if='values.password' :validateOnBlur='!!errors.confirmation' :validateOnChange='true' :validateOnInput='!!errors.confirmation'>
           <h3 class='col-span-3 xs:col-span-2 sm:text-lg ml-1.5 select-none font-light'>confirm</h3>
           <InputText type='password' v-bind='field' maxlength='32' class='col-span-7 xs:col-span-8 disabled:opacity-50' :disabled='isSubmitting' />
         </Field>
@@ -91,6 +91,7 @@ export default defineComponent({
           return true
         },
         password (value: string) {
+          if (!value) return true
           if (value?.length < 3) return 'password is too short'
           if (value?.length > 32) return 'password is too long'
           return true
