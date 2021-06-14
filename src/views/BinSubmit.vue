@@ -25,6 +25,14 @@
           <InputText type='password' v-bind='field' maxlength='32' class='col-span-7 xs:col-span-8 disabled:opacity-50' :disabled='isSubmitting' />
         </Field>
 
+        <Field name='expiration' v-slot='{ field }' :validateOnBlur='!!errors.expiration' :validateOnChange='true' :validateOnInput='!!errors.expiration'>
+          <h3 class='col-span-3 xs:col-span-2 sm:text-lg ml-1.5 select-none font-light' :class="{ 'opacity-50': !field.value}">expire at</h3>
+          <InputText
+            type='date' v-bind='field' class='col-span-7 xs:col-span-8 disabled:opacity-50 w-full' :class="{ 'opacity-50': !field.value}" :disabled='isSubmitting'
+            :min='minExpireAt'
+          />
+        </Field>
+
         <span class='col-span-full ml-1.5 text-sm mt-2' v-if='errors.value'><Error class='w-4 inline text-red-500' /> {{ errors.value }}</span>
         <span class='col-span-full ml-1.5 text-sm' v-if='errors.title'><Error class='w-4 inline text-red-500' /> {{ errors.title }}</span>
         <span class='col-span-full ml-1.5 text-sm' v-if='errors.password'><Error class='w-4 inline text-red-500' /> {{ errors.password }}</span>
@@ -80,6 +88,7 @@ export default defineComponent({
   },
   data () {
     return {
+      minExpireAt: new Date(Date.now() + 8.64e7).toJSON().slice(0, 10),
       schema: {
         value (value: string) {
           if (!value || value.trim() === '') return 'your bin is empty'

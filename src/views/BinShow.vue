@@ -11,6 +11,8 @@
         <h3 v-if='password' class='col-span-full sm:text-lg ml-0.5 select-none font-light'><Lock class='w-6 inline mr-2' />password protected</h3>
         <h3 v-if='createdAt' class='col-span-2 sm:text-lg ml-1.5 select-none font-light'>created:</h3>
         <span v-if='createdAt' class='col-span-3'>{{new Date(+createdAt).toDateString()}}</span>
+        <h3 v-if='expireAt' class='col-span-2 sm:text-lg ml-1.5 select-none font-light'>expires on:</h3>
+        <span v-if='expireAt' class='col-span-3'>{{new Date(+expireAt).toDateString()}}</span>
         <h3 v-if='path' class='col-span-2 sm:text-lg ml-1.5 select-none font-light'>url:</h3>
         <div v-if='path' class='col-span-3 flex flex-row items-center'>
           <div class='relative mr-2 select-none'>
@@ -38,6 +40,7 @@ type State = {
   value: string;
   title: string;
   createdAt: string | null;
+  expireAt?: string | null;
   path: string | null;
   flash: boolean;
   password: string | null;
@@ -47,6 +50,7 @@ type Bin = {
   title: string;
   value: string;
   createdAt: string;
+  expireAt?: string;
 }
 
 export default defineComponent({
@@ -64,7 +68,8 @@ export default defineComponent({
       createdAt: null,
       path: null,
       flash: false,
-      password: null
+      password: null,
+      expireAt: null
     } as State
   },
   created () {
@@ -74,10 +79,11 @@ export default defineComponent({
     }
 
     const req = (): Promise<void> => {
-      return request<Bin>(`pastes-get?id=${this.$route.params.id}${this.password ? `&password=${this.password}` : ''}`).then(({ title, value, createdAt }) => {
+      return request<Bin>(`pastes-get?id=${this.$route.params.id}${this.password ? `&password=${this.password}` : ''}`).then(({ title, value, createdAt, expireAt }) => {
         this.value = value
         this.title = title
         this.createdAt = createdAt
+        this.expireAt = expireAt
         this.path = window.location.href
       }).catch((error: Error) => {
         if (error.message === 'Bin is protected by a password') {
