@@ -70,6 +70,7 @@ type Payload = {
   title: string;
   value: string;
   password?: string;
+  expiration?: string;
 }
 
 type SubmitResponse = {
@@ -114,7 +115,10 @@ export default defineComponent({
   },
   methods: {
     submit (payload: Payload) {
-      return request<SubmitResponse>('pastes-post', { method: 'post', body: JSON.stringify(payload) }).then(({ id }) => {
+      const { expiration, password, ...data } = payload
+      const body = { ...data, ...password && { password }, ...expiration && { expiration }  }
+
+      return request<SubmitResponse>('pastes-post', { method: 'post', body: JSON.stringify(body) }).then(({ id }) => {
         this.$router.push({ name: 'bin', params: { id }, query: { ...payload.password && { password:  payload.password } } })
       })
     }
