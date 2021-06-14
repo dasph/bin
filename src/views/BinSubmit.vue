@@ -26,7 +26,7 @@
         </Field>
 
         <Field name='expiration' v-slot='{ field }' :validateOnBlur='!!errors.expiration' :validateOnChange='true' :validateOnInput='!!errors.expiration'>
-          <h3 class='col-span-3 xs:col-span-2 sm:text-lg ml-1.5 select-none font-light' :class="{ 'opacity-50': !field.value}">expire at</h3>
+          <h3 class='col-span-3 xs:col-span-2 sm:text-lg ml-1.5 select-none font-light' :class="{ 'opacity-50': !field.value}">expire on</h3>
           <InputText
             type='date' v-bind='field' class='col-span-7 xs:col-span-8 disabled:opacity-50 w-full' :class="{ 'opacity-50': !field.value}" :disabled='isSubmitting'
             :min='minExpireAt'
