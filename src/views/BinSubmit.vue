@@ -47,6 +47,16 @@ import Textarea from '../components/Textarea.vue'
 import InputText from '../components/InputText.vue'
 import InputSubmit from '../components/InputSubmit.vue'
 
+interface FieldContext {
+  field: string;
+  value: unknown;
+  form: Record<string, unknown>;
+  rule?: {
+      name: string;
+      params?: Record<string, unknown> | unknown[];
+  };
+}
+
 type Payload = {
   title: string;
   value: string;
@@ -84,7 +94,7 @@ export default defineComponent({
           if (value.length > 32) return 'password is too long'
           return true
         },
-        confirmation (value: string, ctx: any) {
+        confirmation (value: string, ctx: FieldContext) {
           if (ctx.form['password'] && value !== ctx.form['password']) return 'passwords do not match'
           return true
         }
