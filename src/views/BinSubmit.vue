@@ -27,6 +27,7 @@
 
         <span class='col-span-full ml-1.5 text-sm mt-2' v-if='errors.value'><Error class='w-4 inline text-red-500' /> {{ errors.value }}</span>
         <span class='col-span-full ml-1.5 text-sm' v-if='errors.title'><Error class='w-4 inline text-red-500' /> {{ errors.title }}</span>
+        <span class='col-span-full ml-1.5 text-sm' v-if='errors.password'><Error class='w-4 inline text-red-500' /> {{ errors.password }}</span>
         <span class='col-span-full ml-1.5 text-sm' v-if='errors.confirmation'><Error class='w-4 inline text-red-500' /> {{ errors.confirmation }}</span>
 
         <InputSubmit
