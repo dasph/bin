@@ -87,15 +87,15 @@ export default defineComponent({
         this.path = window.location.href
       }).catch((error: ApiError) => {
         if (error.code === 403) {
-          this.value = 'bin is protected by a password'
+          this.value = 'code is protected by a password'
           this.title = 'password required'
 
-          this.password = prompt('Please enter the password for this bin')
+          this.password = prompt('Please enter the password for this code')
           if (this.password) return req()
           return
         }
         if (error.code === 400) {
-          this.value = 'bin is protected by a password'
+          this.value = 'code is protected by a password'
           this.title = 'wrong password'
 
           return

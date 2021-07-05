@@ -1,7 +1,7 @@
 <template>
   <Form class='flex flex-col xl:flex-row mx-2' @submit='submit' v-slot='{ errors, isSubmitting, values }' :validation-schema='schema' ref='form'>
     <div class='w-full flex flex-grow flex-col xl:w-4/5 xl:pr-10'>
-      <h2 className='text-lg sm:text-xl px-1 pb-1 border-l-1 border-current select-none'>your bin</h2>
+      <h2 className='text-lg sm:text-xl px-1 pb-1 border-l-1 border-current select-none'>your code</h2>
       <Field name='value' v-slot='{ field }' :validateOnBlur='!!errors.value' :validateOnChange='true' :validateOnInput='true'>
         <Textarea v-bind='field' :disabled='isSubmitting' autofocus placeholder='paste goes in here...' class='flex-grow w-full mt-2 border-current border-1 font-mono font-light text-sm disabled:opacity-50' />
       </Field>
@@ -12,7 +12,7 @@
       <div class='grid grid-cols-10 gap-y-4 max-w-lg items-center mx-auto xl:mx-0 pt-5 text-sm sm:text-base'>
         <h3 class='col-span-3 xs:col-span-2 sm:text-lg ml-1.5 select-none font-light'>title</h3>
         <Field name='title' v-slot='{ field }' :validateOnBlur='!!errors.title' :validateOnChange='true' :validateOnInput='true'>
-          <InputText v-bind='field' placeholder="bin's title" maxlength='64' class='col-span-7 xs:col-span-8 disabled:opacity-50' :disabled='isSubmitting' />
+          <InputText v-bind='field' placeholder="code's title" maxlength='64' class='col-span-7 xs:col-span-8 disabled:opacity-50' :disabled='isSubmitting' />
         </Field>
 
         <Field name='password' v-slot='{ field }' :validateOnBlur='!!errors.password' :validateOnChange='true' :validateOnInput='false'>
@@ -92,7 +92,7 @@ export default defineComponent({
       minExpireAt: new Date(Date.now() + 8.64e7).toJSON().slice(0, 10),
       schema: {
         value (value: string) {
-          if (!value || value.trim() === '') return 'your bin is empty'
+          if (!value || value.trim() === '') return 'your code is empty'
           return true
         },
         title (value: string) {
