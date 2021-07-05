@@ -10,6 +10,9 @@ module.exports = {
       filename: 'index.html'
     }
   },
+  devServer: {
+    proxy: { '^/api': { target: 'http://localhost:8080', pathRewrite: {'^/api' : ''} } }
+  },
   chainWebpack: ({ module }) => {
     const setFileloader = (...rules) => rules.map((rule) => {
       return module.rule(rule).uses.clear().end().oneOfs.clear().end().use('file-loader').loader('file-loader').tap(() => ({ name: `${rule}/[name].[hash:8].[ext]` }))

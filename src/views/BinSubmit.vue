@@ -118,7 +118,7 @@ export default defineComponent({
       const { expiration, password, ...data } = payload
       const body = { ...data, ...password && { password }, ...expiration && { expiration }  }
 
-      return request<SubmitResponse>('pastes-post', { method: 'post', body: JSON.stringify(body) }).then(({ id }) => {
+      return request<SubmitResponse>('bins', { method: 'post', body: JSON.stringify(body) }).then(({ id }) => {
         this.$router.push({ name: 'bin', params: { id }, query: { ...payload.password && { password:  payload.password } } })
       })
     }

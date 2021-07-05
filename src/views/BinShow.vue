@@ -10,9 +10,9 @@
       <div class='grid grid-cols-5 gap-y-4 max-w-lg items-center mx-auto xl:mx-0 pt-5 text-sm sm:text-base'>
         <h3 v-if='password' class='col-span-full sm:text-lg ml-0.5 select-none font-light'><Lock class='w-6 inline mr-2' />password protected</h3>
         <h3 v-if='createdAt' class='col-span-2 sm:text-lg ml-1.5 select-none font-light'>created on:</h3>
-        <span v-if='createdAt' class='col-span-3'>{{new Date(+createdAt).toDateString()}}</span>
+        <span v-if='createdAt' class='col-span-3'>{{new Date(createdAt).toDateString()}}</span>
         <h3 v-if='expireAt' class='col-span-2 sm:text-lg ml-1.5 select-none font-light'>expires on:</h3>
-        <span v-if='expireAt' class='col-span-3'>{{new Date(+expireAt).toDateString()}}</span>
+        <span v-if='expireAt' class='col-span-3'>{{new Date(expireAt).toDateString()}}</span>
         <h3 v-if='path' class='col-span-2 sm:text-lg ml-1.5 select-none font-light'>url:</h3>
         <div v-if='path' class='col-span-3 flex flex-row items-center'>
           <div class='relative mr-2 select-none'>
@@ -34,7 +34,7 @@ import { defineComponent } from 'vue'
 import Textarea from '../components/Textarea.vue'
 import InputText from '../components/InputText.vue'
 import { Copy, Lock } from '../icons'
-import { request } from '../utils'
+import { request, ApiError } from '../utils'
 
 type State = {
   value: string;
@@ -79,14 +79,14 @@ export default defineComponent({
     }
 
     const req = (): Promise<void> => {
-      return request<Bin>(`pastes-get?id=${this.$route.params.id}${this.password ? `&password=${this.password}` : ''}`).then(({ title, value, createdAt, expireAt }) => {
+      return request<Bin>(`bins/${this.$route.params.id}${this.password ? `/${this.password}` : ''}`).then(({ title, value, createdAt, expireAt }) => {
         this.value = value
         this.title = title
         this.createdAt = createdAt
         this.expireAt = expireAt
         this.path = window.location.href
-      }).catch((error: Error) => {
-        if (error.message === 'Bin is protected by a password') {
+      }).catch((error: ApiError) => {
+        if (error.code === 403) {
           this.value = 'bin is protected by a password'
           this.title = 'password required'
 
@@ -94,7 +94,7 @@ export default defineComponent({
           if (this.password) return req()
           return
         }
-        if (error.message === 'Wrong password') {
+        if (error.code === 400) {
           this.value = 'bin is protected by a password'
           this.title = 'wrong password'
 

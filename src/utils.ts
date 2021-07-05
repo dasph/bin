@@ -2,8 +2,7 @@ export class ApiError extends Error {
   constructor (public code: number, message?: string) { super(message) }
 }
 
-export async function request <T> (webhook: string, init: RequestInit = {}) {
-  const baseUrl = 'https://eu-central-1.aws.webhooks.mongodb-realm.com/api/client/v2.0/app/bin-ugumv/service/api/incoming_webhook/'
+export async function request <T> (method: string, init: RequestInit = {}) {
   const { headers, ...rest } = init
 
   const opts: RequestInit = {
@@ -14,10 +13,10 @@ export async function request <T> (webhook: string, init: RequestInit = {}) {
     ...rest
   }
 
-  const res = await fetch(`${baseUrl}${webhook}`, opts)
-  const { error, ...data } = await res.json()
+  const res = await fetch(`/api/${method}`, opts)
+  const { status, error, data } = await res.json()
 
-  if (error) throw new ApiError(res.status, error)
+  if (error) throw new ApiError(status, error)
 
   return data as T
 }
